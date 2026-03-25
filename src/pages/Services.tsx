@@ -1,6 +1,7 @@
-import { Target, TrendingUp, Megaphone, Palette, BarChart3, MonitorSmartphone, ShoppingCart, Video, Search } from "lucide-react";
+import { Target, TrendingUp, Megaphone, Palette, BarChart3, MonitorSmartphone, ShoppingCart, Video, Search, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
+import PageTransition from "@/components/PageTransition";
 
 const services = [
   { icon: Target, title: "Meta Ads Management", desc: "Strategic Facebook & Instagram advertising campaigns. Audience targeting, A/B testing, retargeting funnels, and conversion optimization for maximum ROI.", color: "from-blue-500/20 to-blue-600/5" },
@@ -15,43 +16,48 @@ const services = [
 ];
 
 const Services = () => (
-  <div className="min-h-screen pt-24">
-    <section className="section-padding">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="font-display text-4xl md:text-5xl font-bold text-center mb-4 animate-fade-up opacity-0">
-          <span className="text-gradient-gold">Services</span> I Provide
-        </h1>
-        <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto animate-fade-up opacity-0 delay-100">
-          Comprehensive digital marketing solutions designed to scale your business, boost visibility, and maximize ROI.
-        </p>
+  <PageTransition>
+    <div className="min-h-screen pt-24">
+      <section className="section-padding">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-center mb-4">
+              <span className="text-gradient-gold">Services</span> I Provide
+            </h1>
+            <p className="text-center text-muted-foreground mb-16 max-w-2xl mx-auto">
+              Comprehensive digital marketing solutions designed to scale your business, boost visibility, and maximize ROI.
+            </p>
+          </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((svc, i) => (
-            <div key={i} className="glass-card rounded-2xl p-8 group animate-fade-up opacity-0" style={{ animationDelay: `${i * 80}ms` }}>
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${svc.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}>
-                <svc.icon className="text-primary" size={28} />
-              </div>
-              <h3 className="font-display text-xl font-semibold text-foreground mb-3">{svc.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{svc.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-16">
-          <div className="glass-card rounded-3xl p-10 md:p-14 max-w-3xl mx-auto glow-gold">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-gradient-gold mb-4">Need a Custom Solution?</h2>
-            <p className="text-muted-foreground mb-6">Every business is unique. Let's discuss a tailored strategy for your specific goals.</p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform"
-            >
-              Let's Talk <ArrowRight size={18} />
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {services.map((svc, i) => (
+              <ScrollReveal key={i} delay={i * 0.08}>
+                <div className="glass-card rounded-2xl p-8 group h-full">
+                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${svc.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}>
+                    <svc.icon className="text-primary" size={28} />
+                  </div>
+                  <h3 className="font-display text-xl font-semibold text-foreground mb-3">{svc.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{svc.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
+
+          <ScrollReveal delay={0.3}>
+            <div className="text-center mt-16">
+              <div className="glass-card rounded-3xl p-10 md:p-14 max-w-3xl mx-auto glow-gold">
+                <h2 className="font-display text-2xl md:text-3xl font-bold text-gradient-gold mb-4">Need a Custom Solution?</h2>
+                <p className="text-muted-foreground mb-6">Every business is unique. Let's discuss a tailored strategy for your specific goals.</p>
+                <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform">
+                  Let's Talk <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
-      </div>
-    </section>
-  </div>
+      </section>
+    </div>
+  </PageTransition>
 );
 
 export default Services;

@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
+import ImageUpload from "@/components/ImageUpload";
 
 type Logo = Tables<"client_logos">;
 
@@ -49,7 +50,10 @@ const AdminLogos = () => {
         <div className="glass-card rounded-2xl p-6 mb-8 space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Client name" className="px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" />
-            <input value={form.logo_url} onChange={(e) => setForm({ ...form, logo_url: e.target.value })} placeholder="Logo URL" className="px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" />
+            <div>
+              <label className="text-sm text-muted-foreground font-body mb-2 block">Logo Image</label>
+              <ImageUpload value={form.logo_url} onChange={(url) => setForm({ ...form, logo_url: url })} folder="logos" />
+            </div>
           </div>
           <input value={form.website_url} onChange={(e) => setForm({ ...form, website_url: e.target.value })} placeholder="Website URL" className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" />
           <div className="flex gap-3">

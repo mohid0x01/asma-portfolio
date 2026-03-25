@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import Feedback from "./pages/Feedback";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Resume from "./pages/Resume";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -62,6 +63,7 @@ const App = () => (
             <Route path="/feedback" element={<PublicLayout><Feedback /></PublicLayout>} />
             <Route path="/blog" element={<PublicLayout><Blog /></PublicLayout>} />
             <Route path="/blog/:slug" element={<PublicLayout><BlogPost /></PublicLayout>} />
+            <Route path="/resume" element={<PublicLayout><Resume /></PublicLayout>} />
 
             {/* Admin routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
