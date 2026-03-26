@@ -3,19 +3,22 @@ import { Outlet, useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import {
   LayoutDashboard, FileText, Briefcase, MessageSquare, Users,
-  Eye, Image, Settings, LogOut, PenTool, Mail
+  Eye, Image, Settings, LogOut, PenTool, Mail, BookOpen, Calendar, Newspaper
 } from "lucide-react";
 import amLogo from "@/assets/am-logo.png";
 
 const navItems = [
   { label: "Dashboard", path: "/admin", icon: LayoutDashboard },
   { label: "Blog Posts", path: "/admin/blog", icon: PenTool },
+  { label: "Case Studies", path: "/admin/case-studies", icon: BookOpen },
   { label: "Projects", path: "/admin/projects", icon: Briefcase },
   { label: "Services", path: "/admin/services", icon: Settings },
   { label: "Testimonials", path: "/admin/testimonials", icon: MessageSquare },
   { label: "Client Logos", path: "/admin/logos", icon: Image },
   { label: "Feedbacks", path: "/admin/feedbacks", icon: Users },
   { label: "Messages", path: "/admin/messages", icon: Mail },
+  { label: "Bookings", path: "/admin/bookings", icon: Calendar },
+  { label: "Newsletter", path: "/admin/newsletter", icon: Newspaper },
   { label: "Visitors", path: "/admin/visitors", icon: Eye },
   { label: "Site Content", path: "/admin/content", icon: FileText },
 ];
@@ -43,7 +46,6 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Sidebar */}
       <aside className="w-64 glass-strong border-r border-border/20 flex flex-col fixed top-0 left-0 h-full z-50">
         <div className="p-6 border-b border-border/20">
           <Link to="/admin" className="flex items-center gap-3">
@@ -80,7 +82,6 @@ const AdminLayout = () => {
         </div>
       </aside>
 
-      {/* Main content */}
       <main className="flex-1 ml-64 p-8">
         <Outlet />
       </main>

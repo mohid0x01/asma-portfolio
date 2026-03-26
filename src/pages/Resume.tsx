@@ -1,4 +1,4 @@
-import { Download, Briefcase, GraduationCap, Award, MapPin, Mail, Phone } from "lucide-react";
+import { Download, Briefcase, GraduationCap, Award, MapPin, Mail, Phone, Linkedin, ArrowRight, ShoppingBag, Globe, Video, Store, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
@@ -6,36 +6,39 @@ import PageTransition from "@/components/PageTransition";
 const experience = [
   {
     period: "2023 – Present",
-    title: "Senior Digital Marketing Strategist",
-    company: "AM Marketing Agency (Founder)",
-    desc: "Leading end-to-end digital strategy for 50+ global clients. Managing $10M+ ad spend across Meta, Google, and TikTok platforms. Specializing in e-commerce growth, brand development, and social media monetization.",
+    title: "E-Commerce Store Manager & Digital Marketing Strategist",
+    company: "AM Marketing Agency (Founder) + Etsy",
+    desc: "Helping business owners gain freedom through social media mastery. Managing e-commerce stores on Etsy, eBay, Shopify & TikTok Shop. Leading end-to-end digital strategy for 50+ global clients. Managing $10M+ ad spend across Meta, Google, and TikTok platforms. Specializing in e-commerce growth, brand development, and social media monetization.",
+    tags: ["Etsy", "eBay", "TikTok Shop", "Shopify", "Meta Ads", "Google Ads"],
   },
   {
     period: "2021 – 2023",
     title: "Meta & Google Ads Specialist",
-    company: "Freelance",
-    desc: "Managed paid ad campaigns for SMBs across multiple industries. Achieved average 4x ROAS. Built and optimized conversion funnels, A/B tested creatives, and scaled budgets.",
+    company: "Freelance — E-Commerce Specialist",
+    desc: "Managed paid ad campaigns for SMBs and e-commerce brands. Achieved average 4x ROAS. Built and optimized conversion funnels, A/B tested creatives, and scaled budgets across Etsy, Shopify, and direct-to-consumer brands.",
+    tags: ["Meta Ads", "Google Ads", "Shopify", "Etsy"],
   },
   {
     period: "2020 – 2021",
-    title: "Social Media Manager",
-    company: "Various Brands",
-    desc: "Created content strategies for Instagram, Facebook, and TikTok. Grew client accounts organically. Developed brand voice guidelines and content calendars.",
+    title: "Social Media Manager & Virtual Assistant",
+    company: "Various E-Commerce Brands",
+    desc: "Created content strategies for Instagram, Facebook, and TikTok. Grew client accounts organically. Managed e-commerce store operations including product listings, customer service, and order fulfillment.",
+    tags: ["Social Media", "Content Creation", "E-Commerce"],
   },
   {
     period: "2019 – 2020",
     title: "Digital Marketing Intern",
     company: "Marketing Agency",
     desc: "Learned fundamentals of SEO, PPC, and social media marketing. Assisted in campaign setup, reporting, and competitor analysis.",
+    tags: ["SEO", "PPC", "Analytics"],
   },
 ];
 
 const skills = [
-  "Meta Ads (Facebook & Instagram)", "Google Ads (Search, Display, Shopping)",
-  "TikTok Ads & Shop", "Brand Identity Design", "Social Media Management",
-  "Content Creation & Strategy", "E-Commerce Marketing", "Analytics & Reporting",
-  "SEO & Organic Growth", "Conversion Rate Optimization", "A/B Testing",
-  "Campaign Budgeting & Scaling",
+  { category: "Advertising", items: ["Meta Ads (Facebook & Instagram)", "Google Ads (Search, Display, Shopping)", "TikTok Ads & Monetization"] },
+  { category: "E-Commerce", items: ["Etsy Store Management & SEO", "eBay PowerSeller Strategies", "TikTok Shop Setup & Growth", "Shopify Store Building & Marketing"] },
+  { category: "Marketing", items: ["Brand Identity Design", "Social Media Management", "Content Creation & Strategy", "Email Marketing (Klaviyo/Mailchimp)"] },
+  { category: "Technical", items: ["Analytics & Reporting", "SEO & Organic Growth", "Conversion Rate Optimization", "A/B Testing & Campaign Scaling"] },
 ];
 
 const certifications = [
@@ -43,6 +46,8 @@ const certifications = [
   "Google Ads Certified",
   "TikTok Marketing Professional",
   "HubSpot Content Marketing",
+  "Shopify Partner Certified",
+  "Etsy SEO Specialist",
 ];
 
 const Resume = () => (
@@ -55,25 +60,40 @@ const Resume = () => (
               <h1 className="font-display text-4xl md:text-5xl font-bold mb-4">
                 <span className="text-gradient-gold">Asma Mahar</span>
               </h1>
-              <p className="text-lg text-muted-foreground mb-2">Senior Digital Marketing Strategist</p>
+              <p className="text-lg text-muted-foreground mb-1">E-Commerce Specialist & Paid Marketing Expert</p>
+              <p className="text-sm text-muted-foreground mb-4">Ecommerce Store Manager at Etsy | 500+ Connections | 2,221+ Followers</p>
               <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1"><MapPin size={14} /> Available Worldwide</span>
+                <span className="flex items-center gap-1"><MapPin size={14} /> Islamabad, Pakistan</span>
                 <a href="mailto:asmamahar234@gmail.com" className="flex items-center gap-1 hover:text-primary transition-colors"><Mail size={14} /> asmamahar234@gmail.com</a>
                 <a href="tel:+923029312872" className="flex items-center gap-1 hover:text-primary transition-colors"><Phone size={14} /> +92 3029312872</a>
+                <a href="https://linkedin.com/in/asmamahar-ecommercemanager" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary transition-colors"><Linkedin size={14} /> LinkedIn</a>
               </div>
             </div>
           </ScrollReveal>
 
-          {/* Download button */}
+          {/* Download & CTA buttons */}
           <ScrollReveal delay={0.1}>
-            <div className="text-center mb-16">
-              <a
-                href="/Asma_Mahar_Resume.pdf"
-                download
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform glow-gold"
-              >
+            <div className="flex flex-wrap justify-center gap-4 mb-16">
+              <a href="/Asma_Mahar_Resume.pdf" download className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform glow-gold">
                 <Download size={18} /> Download Resume PDF
               </a>
+              <Link to="/book-consultation" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold hover:scale-105 transition-transform">
+                Book Consultation <ArrowRight size={16} />
+              </Link>
+            </div>
+          </ScrollReveal>
+
+          {/* Summary */}
+          <ScrollReveal delay={0.12}>
+            <div className="glass-card rounded-2xl p-8 mb-12">
+              <h2 className="font-display text-xl font-bold text-gradient-gold mb-4">Professional Summary</h2>
+              <p className="text-muted-foreground leading-relaxed">
+                E-commerce Specialist and Paid Marketing Expert, Social Media Manager, and Virtual Assistant. 
+                I help e-commerce businesses boost sales through paid marketing services and social media management 
+                across Etsy, eBay, TikTok Shop, Shopify, and local commerce platforms. 
+                With 5+ years of experience managing $10M+ in ad spend and delivering 500%+ average revenue growth 
+                for 50+ clients globally.
+              </p>
             </div>
           </ScrollReveal>
 
@@ -93,23 +113,35 @@ const Resume = () => (
                     <h3 className="font-display text-lg font-semibold text-foreground mt-1">{exp.title}</h3>
                     <p className="text-sm text-muted-foreground font-medium">{exp.company}</p>
                     <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{exp.desc}</p>
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {exp.tags.map((tag, j) => (
+                        <span key={j} className="px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-body font-medium">{tag}</span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
             ))}
           </div>
 
-          {/* Skills */}
+          {/* Skills by Category */}
           <ScrollReveal delay={0.1}>
             <h2 className="font-display text-2xl font-bold text-gradient-gold mb-8 flex items-center gap-3">
               <Award size={24} /> Skills & Expertise
             </h2>
           </ScrollReveal>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-16">
-            {skills.map((skill, i) => (
-              <ScrollReveal key={i} delay={i * 0.05}>
-                <div className="glass-card rounded-xl px-4 py-3 text-sm font-body text-foreground/80 text-center hover:text-primary transition-colors">
-                  {skill}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+            {skills.map((cat, ci) => (
+              <ScrollReveal key={ci} delay={ci * 0.1}>
+                <div className="glass-card rounded-2xl p-6">
+                  <h3 className="font-display font-semibold text-primary text-sm mb-4">{cat.category}</h3>
+                  <ul className="space-y-2">
+                    {cat.items.map((item, ii) => (
+                      <li key={ii} className="flex items-center gap-2 text-sm text-foreground/80">
+                        <CheckCircle className="text-primary shrink-0" size={14} /> {item}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </ScrollReveal>
             ))}
@@ -136,10 +168,15 @@ const Resume = () => (
           <ScrollReveal>
             <div className="glass-card rounded-3xl p-10 text-center glow-gold">
               <h3 className="font-display text-2xl font-bold text-gradient-gold mb-4">Let's Work Together</h3>
-              <p className="text-muted-foreground mb-6">Ready to take your marketing to the next level?</p>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform">
-                Contact Me
-              </Link>
+              <p className="text-muted-foreground mb-6">Ready to scale your e-commerce business?</p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link to="/book-consultation" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform">
+                  Book Consultation
+                </Link>
+                <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold hover:scale-105 transition-transform">
+                  Contact Me
+                </Link>
+              </div>
             </div>
           </ScrollReveal>
         </div>
