@@ -7,10 +7,11 @@ const navItems = [
   { label: "Home", path: "/" },
   { label: "About", path: "/about" },
   { label: "Services", path: "/services" },
+  { label: "Case Studies", path: "/case-studies" },
   { label: "Projects", path: "/projects" },
+  { label: "Pricing", path: "/pricing" },
   { label: "Blog", path: "/blog" },
-  { label: "Testimonials", path: "/testimonials" },
-  { label: "Feedback", path: "/feedback" },
+  { label: "Tools", path: "/tools" },
   { label: "Resume", path: "/resume" },
   { label: "Contact", path: "/contact" },
 ];
@@ -27,7 +28,7 @@ const Navbar = () => {
           <span className="font-display text-xl font-bold text-gradient-gold">AM Marketing</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-5">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -39,15 +40,18 @@ const Navbar = () => {
               {item.label}
             </Link>
           ))}
+          <Link to="/book-consultation" className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-body font-semibold text-sm hover:scale-105 transition-transform">
+            Free Consultation
+          </Link>
         </div>
 
-        <button onClick={() => setOpen(!open)} className="md:hidden text-foreground">
+        <button onClick={() => setOpen(!open)} className="lg:hidden text-foreground">
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {open && (
-        <div className="md:hidden glass-strong border-t border-border/30 px-6 py-4 space-y-3">
+        <div className="lg:hidden glass-strong border-t border-border/30 px-6 py-4 space-y-3">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -60,6 +64,9 @@ const Navbar = () => {
               {item.label}
             </Link>
           ))}
+          <Link to="/book-consultation" onClick={() => setOpen(false)} className="block text-center px-5 py-3 rounded-full bg-primary text-primary-foreground font-body font-semibold text-sm">
+            Free Consultation
+          </Link>
         </div>
       )}
     </nav>

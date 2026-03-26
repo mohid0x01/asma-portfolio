@@ -58,7 +58,7 @@ const AdminCaseStudies = () => {
           <textarea value={form.challenge} onChange={e => setForm({ ...form, challenge: e.target.value })} placeholder="The Challenge" rows={3} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body resize-none focus:outline-none focus:border-primary/50" />
           <textarea value={form.solution} onChange={e => setForm({ ...form, solution: e.target.value })} placeholder="The Solution" rows={3} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body resize-none focus:outline-none focus:border-primary/50" />
           <textarea value={form.results} onChange={e => setForm({ ...form, results: e.target.value })} placeholder="The Results" rows={3} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body resize-none focus:outline-none focus:border-primary/50" />
-          <ImageUpload currentUrl={form.cover_image} onUpload={url => setForm({ ...form, cover_image: url })} folder="case-studies" label="Cover Image" />
+          <ImageUpload value={form.cover_image} onChange={url => setForm({ ...form, cover_image: url })} folder="case-studies" />
           <div className="flex gap-3">
             <button onClick={save} className="px-6 py-2 rounded-xl bg-primary text-primary-foreground font-body font-semibold text-sm">Save</button>
             <button onClick={reset} className="px-6 py-2 rounded-xl bg-muted text-foreground font-body text-sm">Cancel</button>
