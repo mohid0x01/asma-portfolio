@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, TrendingUp, Target, BarChart3, Megaphone, Palette, MonitorSmartphone, CheckCircle, MessageSquare, Lightbulb, Rocket, Search, Users, Star } from "lucide-react";
+import { ArrowRight, TrendingUp, Target, BarChart3, Megaphone, Palette, MonitorSmartphone, CheckCircle, MessageSquare, Lightbulb, Rocket, Search, Users, Star, ShoppingBag, Store, Video, Globe, MapPin, Zap, Award } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroBg from "@/assets/hero-bg.jpg";
@@ -7,6 +7,8 @@ import amLogo from "@/assets/am-logo.png";
 import type { Tables } from "@/integrations/supabase/types";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
+import CounterAnimation from "@/components/CounterAnimation";
+import ROICalculator from "@/components/ROICalculator";
 
 const services = [
   { icon: Target, title: "Meta Ads", desc: "Strategic Facebook & Instagram ad campaigns that convert." },
@@ -17,13 +19,6 @@ const services = [
   { icon: MonitorSmartphone, title: "Social Media", desc: "Content creation and growth across all platforms." },
 ];
 
-const stats = [
-  { value: "5+", label: "Years Experience" },
-  { value: "100+", label: "Projects Delivered" },
-  { value: "50+", label: "Happy Clients" },
-  { value: "10M+", label: "Ad Spend Managed" },
-];
-
 const process = [
   { step: "01", icon: Search, title: "Discovery", desc: "We analyze your business goals, target audience, and competitive landscape." },
   { step: "02", icon: Lightbulb, title: "Strategy", desc: "Craft a customized marketing plan with clear KPIs and milestones." },
@@ -31,12 +26,31 @@ const process = [
   { step: "04", icon: BarChart3, title: "Optimize", desc: "Continuously monitor, test, and refine for maximum ROI." },
 ];
 
+const platforms = [
+  { icon: ShoppingBag, name: "Etsy", desc: "Handmade & vintage marketplace" },
+  { icon: Store, name: "eBay", desc: "Global online marketplace" },
+  { icon: Video, name: "TikTok Shop", desc: "Social commerce platform" },
+  { icon: Globe, name: "Shopify", desc: "E-commerce store builder" },
+  { icon: MapPin, name: "Local Commerce", desc: "Local business marketing" },
+];
+
 const faqs = [
   { q: "Do you work with businesses from all countries?", a: "Yes! We work with clients globally, adjusting to their timezone and market." },
   { q: "How much do your services cost?", a: "Pricing depends on your project scope and needs. Contact us for a free consultation and custom quote." },
-  { q: "What platforms do you specialize in?", a: "We specialize in Meta (Facebook/Instagram), Google Ads, TikTok, and comprehensive social media management." },
+  { q: "What platforms do you specialize in?", a: "We specialize in Etsy, eBay, TikTok Shop, Shopify, Meta Ads, Google Ads, and comprehensive social media management." },
   { q: "How soon can I see results?", a: "Most clients see initial improvements within 2-4 weeks. Significant ROI typically shows within 2-3 months." },
   { q: "Do you offer long-term contracts?", a: "We offer both project-based and retainer arrangements. We believe in transparency — all agreements are clearly documented." },
+  { q: "Do you handle TikTok Shop setup?", a: "Yes! We provide complete TikTok Shop setup, product listing optimization, affiliate creator management, and live shopping strategies." },
+  { q: "Can you manage multiple platforms simultaneously?", a: "Absolutely. We specialize in multi-channel e-commerce management across Etsy, eBay, Shopify, TikTok Shop, and more." },
+];
+
+const achievements = [
+  { icon: Award, value: "$10M+", label: "Ad Spend Managed" },
+  { icon: Users, value: "50+", label: "Happy Clients" },
+  { icon: TrendingUp, value: "500%", label: "Avg Revenue Growth" },
+  { icon: Star, value: "4.9", label: "Client Rating" },
+  { icon: Zap, value: "100+", label: "Projects Delivered" },
+  { icon: Globe, value: "15+", label: "Countries Served" },
 ];
 
 const Index = () => {
@@ -44,11 +58,13 @@ const Index = () => {
   const [logos, setLogos] = useState<Tables<"client_logos">[]>([]);
   const [blogPosts, setBlogPosts] = useState<Tables<"blog_posts">[]>([]);
   const [testimonials, setTestimonials] = useState<Tables<"testimonials">[]>([]);
+  const [caseStudies, setCaseStudies] = useState<any[]>([]);
 
   useEffect(() => {
     supabase.from("client_logos").select("*").eq("published", true).order("sort_order").then(({ data }) => setLogos(data || []));
     supabase.from("blog_posts").select("*").eq("published", true).order("created_at", { ascending: false }).limit(3).then(({ data }) => setBlogPosts(data || []));
     supabase.from("testimonials").select("*").eq("published", true).order("sort_order").limit(3).then(({ data }) => setTestimonials(data || []));
+    supabase.from("case_studies").select("*").eq("published", true).order("sort_order").limit(3).then(({ data }) => setCaseStudies(data || []));
   }, []);
 
   return (
@@ -64,39 +80,68 @@ const Index = () => {
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
               <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-                <span className="text-gradient-gold">Digital Marketing</span><br />
-                <span className="text-foreground">Agency</span>
+                <span className="text-gradient-gold">E-Commerce</span><br />
+                <span className="text-foreground">Growth Expert</span>
               </h1>
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 font-body">
-                Maximize Your Online Success with <span className="text-primary font-semibold">Asma Mahar</span> — Your Ultimate E-Commerce and Social Media Strategist!
+                Scaling businesses on <span className="text-primary font-semibold">Etsy, eBay, TikTok Shop, Shopify</span> & more. 
+                Your ultimate e-commerce & paid marketing strategist.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform glow-gold">
-                  Contact Now <ArrowRight size={18} />
+                <Link to="/book-consultation" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform glow-gold">
+                  Free Consultation <ArrowRight size={18} />
                 </Link>
-                <Link to="/projects" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform">
-                  View Projects
+                <Link to="/case-studies" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform">
+                  View Case Studies
                 </Link>
               </div>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* Stats */}
+        {/* Animated Stats */}
         <section className="section-padding -mt-20 relative z-10">
-          <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((stat, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="glass-card rounded-2xl p-6 text-center">
-                  <div className="text-3xl md:text-4xl font-display font-bold text-gradient-gold">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground mt-1 font-body">{stat.label}</div>
+          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {achievements.map((stat, i) => (
+              <ScrollReveal key={i} delay={i * 0.08}>
+                <div className="glass-card rounded-2xl p-5 text-center group hover:glow-gold transition-all">
+                  <stat.icon className="text-primary mx-auto mb-2" size={24} />
+                  <div className="text-2xl md:text-3xl font-display font-bold text-gradient-gold">{stat.value}</div>
+                  <div className="text-xs text-muted-foreground mt-1 font-body">{stat.label}</div>
                 </div>
               </ScrollReveal>
             ))}
+          </div>
+        </section>
+
+        {/* E-Commerce Platforms */}
+        <section className="section-padding">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <h2 className="font-display text-3xl md:text-5xl font-bold text-center mb-4">
+                Platforms I <span className="text-gradient-gold">Specialize</span> In
+              </h2>
+              <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">
+                Expert management and growth strategies across all major e-commerce platforms.
+              </p>
+            </ScrollReveal>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {platforms.map((p, i) => (
+                <ScrollReveal key={i} delay={i * 0.1}>
+                  <Link to="/case-studies" className="glass-card rounded-2xl p-6 text-center group h-full hover:glow-gold transition-all">
+                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                      <p.icon className="text-primary" size={28} />
+                    </div>
+                    <h3 className="font-display font-semibold text-foreground text-sm mb-1">{p.name}</h3>
+                    <p className="text-xs text-muted-foreground">{p.desc}</p>
+                  </Link>
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -158,6 +203,50 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Case Studies Preview */}
+        {caseStudies.length > 0 && (
+          <section className="section-padding">
+            <div className="max-w-6xl mx-auto">
+              <ScrollReveal>
+                <h2 className="font-display text-3xl md:text-5xl font-bold text-center mb-4">
+                  E-Commerce <span className="text-gradient-gold">Success Stories</span>
+                </h2>
+                <p className="text-center text-muted-foreground mb-12 max-w-xl mx-auto">Real results from real businesses across multiple platforms.</p>
+              </ScrollReveal>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {caseStudies.map((cs, i) => (
+                  <ScrollReveal key={cs.id} delay={i * 0.1}>
+                    <Link to={`/case-studies/${cs.slug}`} className="glass-card rounded-2xl p-8 group block h-full hover:glow-gold transition-all">
+                      <span className="text-xs font-body font-semibold text-primary tracking-wider uppercase">{cs.platform}</span>
+                      <h3 className="font-display text-lg font-bold text-foreground mt-2 mb-3 group-hover:text-primary transition-colors">{cs.title}</h3>
+                      {cs.metrics && (
+                        <div className="grid grid-cols-2 gap-2 mb-4">
+                          {Object.entries(cs.metrics).slice(0, 2).map(([key, val]) => (
+                            <div key={key} className="bg-muted/30 rounded-lg px-3 py-2 text-center">
+                              <div className="text-sm font-display font-bold text-primary">{String(val)}</div>
+                              <div className="text-[10px] text-muted-foreground capitalize">{key.replace(/_/g, ' ')}</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      <span className="inline-flex items-center gap-1 text-primary text-sm font-body font-semibold group-hover:gap-2 transition-all">
+                        Read More <ArrowRight size={14} />
+                      </span>
+                    </Link>
+                  </ScrollReveal>
+                ))}
+              </div>
+              <ScrollReveal delay={0.3}>
+                <div className="text-center mt-10">
+                  <Link to="/case-studies" className="inline-flex items-center gap-2 text-primary font-body font-semibold hover:gap-3 transition-all">
+                    View All Case Studies <ArrowRight size={18} />
+                  </Link>
+                </div>
+              </ScrollReveal>
+            </div>
+          </section>
+        )}
+
         {/* Process */}
         <section className="section-padding">
           <div className="max-w-5xl mx-auto">
@@ -185,6 +274,9 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* ROI Calculator */}
+        <ROICalculator />
 
         {/* Testimonials Preview */}
         {testimonials.length > 0 && (
@@ -298,7 +390,7 @@ const Index = () => {
               <Users className="text-accent mx-auto mb-4" size={40} />
               <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">Worked With Us?</h2>
               <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-                Share your experience and help others discover quality digital marketing.
+                Share your experience and help others discover quality e-commerce marketing.
               </p>
               <Link to="/feedback" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-accent text-accent-foreground font-body font-semibold hover:scale-105 transition-transform">
                 Leave Feedback <ArrowRight size={18} />
@@ -307,17 +399,22 @@ const Index = () => {
           </ScrollReveal>
         </section>
 
-        {/* CTA */}
+        {/* Final CTA */}
         <section className="section-padding">
           <ScrollReveal>
             <div className="max-w-4xl mx-auto glass-card rounded-3xl p-10 md:p-16 text-center glow-gold">
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-gradient-gold mb-4">Ready to Grow Your Business?</h2>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-gradient-gold mb-4">Ready to Scale Your E-Commerce Business?</h2>
               <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-                Let's discuss how we can take your brand to the next level with data-driven marketing strategies.
+                Book a free strategy session and discover how we can 10x your online revenue.
               </p>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform">
-                Get In Touch <ArrowRight size={18} />
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link to="/book-consultation" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform">
+                  Book Free Consultation <ArrowRight size={18} />
+                </Link>
+                <Link to="/pricing" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold hover:scale-105 transition-transform">
+                  View Pricing
+                </Link>
+              </div>
             </div>
           </ScrollReveal>
         </section>

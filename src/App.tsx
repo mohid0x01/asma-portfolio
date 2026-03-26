@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useVisitorTracking } from "@/hooks/useVisitorTracking";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import WhatsAppWidget from "./components/WhatsAppWidget";
+import BackToTop from "./components/BackToTop";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -16,6 +18,11 @@ import Feedback from "./pages/Feedback";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Resume from "./pages/Resume";
+import CaseStudies from "./pages/CaseStudies";
+import CaseStudyDetail from "./pages/CaseStudyDetail";
+import Pricing from "./pages/Pricing";
+import Tools from "./pages/Tools";
+import BookConsultation from "./pages/BookConsultation";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -29,6 +36,9 @@ import AdminFeedbacks from "./pages/admin/AdminFeedbacks";
 import AdminMessages from "./pages/admin/AdminMessages";
 import AdminVisitors from "./pages/admin/AdminVisitors";
 import AdminContent from "./pages/admin/AdminContent";
+import AdminCaseStudies from "./pages/admin/AdminCaseStudies";
+import AdminBookings from "./pages/admin/AdminBookings";
+import AdminNewsletter from "./pages/admin/AdminNewsletter";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +52,8 @@ const PublicLayout = ({ children }: { children: React.ReactNode }) => (
     <Navbar />
     {children}
     <Footer />
+    <WhatsAppWidget />
+    <BackToTop />
   </>
 );
 
@@ -64,6 +76,11 @@ const App = () => (
             <Route path="/blog" element={<PublicLayout><Blog /></PublicLayout>} />
             <Route path="/blog/:slug" element={<PublicLayout><BlogPost /></PublicLayout>} />
             <Route path="/resume" element={<PublicLayout><Resume /></PublicLayout>} />
+            <Route path="/case-studies" element={<PublicLayout><CaseStudies /></PublicLayout>} />
+            <Route path="/case-studies/:slug" element={<PublicLayout><CaseStudyDetail /></PublicLayout>} />
+            <Route path="/pricing" element={<PublicLayout><Pricing /></PublicLayout>} />
+            <Route path="/tools" element={<PublicLayout><Tools /></PublicLayout>} />
+            <Route path="/book-consultation" element={<PublicLayout><BookConsultation /></PublicLayout>} />
 
             {/* Admin routes */}
             <Route path="/admin/login" element={<AdminLogin />} />
@@ -78,6 +95,9 @@ const App = () => (
               <Route path="messages" element={<AdminMessages />} />
               <Route path="visitors" element={<AdminVisitors />} />
               <Route path="content" element={<AdminContent />} />
+              <Route path="case-studies" element={<AdminCaseStudies />} />
+              <Route path="bookings" element={<AdminBookings />} />
+              <Route path="newsletter" element={<AdminNewsletter />} />
             </Route>
 
             <Route path="*" element={<PublicLayout><NotFound /></PublicLayout>} />
