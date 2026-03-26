@@ -56,6 +56,60 @@ export type Database = {
         }
         Relationships: []
       }
+      case_studies: {
+        Row: {
+          challenge: string | null
+          client_name: string | null
+          cover_image: string | null
+          created_at: string | null
+          gallery_images: string[] | null
+          id: string
+          metrics: Json | null
+          platform: string
+          published: boolean | null
+          results: string | null
+          slug: string
+          solution: string | null
+          sort_order: number | null
+          tags: string[] | null
+          title: string
+        }
+        Insert: {
+          challenge?: string | null
+          client_name?: string | null
+          cover_image?: string | null
+          created_at?: string | null
+          gallery_images?: string[] | null
+          id?: string
+          metrics?: Json | null
+          platform?: string
+          published?: boolean | null
+          results?: string | null
+          slug: string
+          solution?: string | null
+          sort_order?: number | null
+          tags?: string[] | null
+          title: string
+        }
+        Update: {
+          challenge?: string | null
+          client_name?: string | null
+          cover_image?: string | null
+          created_at?: string | null
+          gallery_images?: string[] | null
+          id?: string
+          metrics?: Json | null
+          platform?: string
+          published?: boolean | null
+          results?: string | null
+          slug?: string
+          solution?: string | null
+          sort_order?: number | null
+          tags?: string[] | null
+          title?: string
+        }
+        Relationships: []
+      }
       client_logos: {
         Row: {
           created_at: string | null
@@ -83,6 +137,45 @@ export type Database = {
           published?: boolean | null
           sort_order?: number | null
           website_url?: string | null
+        }
+        Relationships: []
+      }
+      consultation_bookings: {
+        Row: {
+          budget_range: string | null
+          business_type: string | null
+          created_at: string | null
+          email: string
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          platform: string | null
+          status: string | null
+        }
+        Insert: {
+          budget_range?: string | null
+          business_type?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          platform?: string | null
+          status?: string | null
+        }
+        Update: {
+          budget_range?: string | null
+          business_type?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          platform?: string | null
+          status?: string | null
         }
         Relationships: []
       }
@@ -140,6 +233,27 @@ export type Database = {
           message?: string
           name?: string
           rating?: number | null
+        }
+        Relationships: []
+      }
+      newsletter_subscribers: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          subscribed: boolean | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          subscribed?: boolean | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          subscribed?: boolean | null
         }
         Relationships: []
       }
