@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, CheckCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
+import BrandLogo from "@/components/BrandLogo";
 
 const CaseStudyDetail = () => {
   const { slug } = useParams();
@@ -32,7 +33,10 @@ const CaseStudyDetail = () => {
             </ScrollReveal>
 
             <ScrollReveal delay={0.1}>
-              <span className="text-xs font-body font-semibold text-primary tracking-wider uppercase">{study.platform}</span>
+              <div className="mb-4 flex items-center gap-3">
+                <BrandLogo brand={study.platform} className="px-2 py-1" imgClassName="h-8" />
+                <span className="text-xs font-body font-semibold text-primary tracking-wider uppercase">{study.platform}</span>
+              </div>
               <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">{study.title}</h1>
               {study.client_name && <p className="text-muted-foreground mb-6">Client: <span className="text-foreground font-semibold">{study.client_name}</span></p>}
             </ScrollReveal>

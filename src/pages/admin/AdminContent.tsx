@@ -49,7 +49,10 @@ const AdminContent = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="font-display text-3xl font-bold text-gradient-gold">Site Content</h1>
+        <div>
+          <h1 className="font-display text-3xl font-bold text-gradient-gold">Site Content</h1>
+          <p className="mt-2 text-sm text-muted-foreground">General text content lives here. CV file upload is available in the dedicated CV / Resume tab.</p>
+        </div>
         <button onClick={() => { reset(); setShowForm(true); }} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground font-body font-semibold text-sm"><Plus size={18} /> Add</button>
       </div>
 

@@ -1,7 +1,9 @@
-import { Download, Briefcase, GraduationCap, Award, MapPin, Mail, Phone, Linkedin, ArrowRight, ShoppingBag, Globe, Video, Store, CheckCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Download, Briefcase, GraduationCap, Award, MapPin, Mail, Phone, Linkedin, ArrowRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
+import { supabase } from "@/integrations/supabase/client";
 
 const experience = [
   {
@@ -50,9 +52,25 @@ const certifications = [
   "Etsy SEO Specialist",
 ];
 
-const Resume = () => (
-  <PageTransition>
-    <div className="min-h-screen pt-24">
+const Resume = () => {
+  const [cvUrl, setCvUrl] = useState("/Asma_Mahar_Resume.pdf");
+
+  useEffect(() => {
+    supabase
+      .from("site_content")
+      .select("content_value")
+      .eq("page", "resume")
+      .eq("section", "documents")
+      .eq("content_key", "cv_url")
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data?.content_value) setCvUrl(data.content_value);
+      });
+  }, []);
+
+  return (
+    <PageTransition>
+      <div className="min-h-screen pt-24">
       <section className="section-padding">
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
@@ -74,7 +92,7 @@ const Resume = () => (
           {/* Download & CTA buttons */}
           <ScrollReveal delay={0.1}>
             <div className="flex flex-wrap justify-center gap-4 mb-16">
-              <a href="/Asma_Mahar_Resume.pdf" download className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform glow-gold">
+              <a href={cvUrl} download className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold hover:scale-105 transition-transform glow-gold">
                 <Download size={18} /> Download Resume PDF
               </a>
               <Link to="/book-consultation" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold hover:scale-105 transition-transform">
@@ -182,7 +200,8 @@ const Resume = () => (
         </div>
       </section>
     </div>
-  </PageTransition>
-);
+    </PageTransition>
+  );
+};
 
 export default Resume;
