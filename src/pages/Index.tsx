@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, TrendingUp, Target, BarChart3, CheckCircle, MessageSquare, Lightbulb, Rocket, Search, Users, Star, Zap, Award } from "lucide-react";
+import { ArrowRight, TrendingUp, Target, BarChart3, CheckCircle, MessageSquare, Lightbulb, Rocket, Search, Users, Star, Zap, Award, Globe } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroBg from "@/assets/hero-bg-clean.jpg";
