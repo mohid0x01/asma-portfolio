@@ -1,18 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShoppingBag, Store, Video, Globe, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
-
-const platformIcons: Record<string, any> = {
-  Etsy: ShoppingBag, eBay: Store, "TikTok Shop": Video, Shopify: Globe, "Local Commerce": MapPin,
-};
-const platformColors: Record<string, string> = {
-  Etsy: "from-orange-500/20 to-orange-600/5", eBay: "from-blue-500/20 to-blue-600/5",
-  "TikTok Shop": "from-pink-500/20 to-pink-600/5", Shopify: "from-green-500/20 to-green-600/5",
-  "Local Commerce": "from-amber-500/20 to-amber-600/5",
-};
+import BrandLogo from "@/components/BrandLogo";
 
 const CaseStudies = () => {
   const [studies, setStudies] = useState<any[]>([]);
@@ -45,8 +37,9 @@ const CaseStudies = () => {
               <div className="flex flex-wrap justify-center gap-3 mb-12">
                 {platforms.map(p => (
                   <button key={p} onClick={() => setFilter(p)}
-                    className={`px-5 py-2 rounded-full text-sm font-body font-medium transition-all ${filter === p ? "bg-primary text-primary-foreground" : "glass-card hover:text-primary"}`}>
-                    {p}
+                    className={`inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-body font-medium transition-all ${filter === p ? "bg-primary text-primary-foreground" : "glass-card hover:text-primary"}`}>
+                    {p !== "All" && <BrandLogo brand={p} className="border-0 bg-transparent p-0 shadow-none" imgClassName="h-5" />}
+                    <span>{p}</span>
                   </button>
                 ))}
               </div>
@@ -55,8 +48,6 @@ const CaseStudies = () => {
             {/* Case Study Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {filtered.map((study, i) => {
-                const Icon = platformIcons[study.platform] || Globe;
-                const color = platformColors[study.platform] || "from-blue-500/20 to-blue-600/5";
                 const metrics = study.metrics || {};
                 return (
                   <ScrollReveal key={study.id} delay={i * 0.1}>
@@ -66,9 +57,7 @@ const CaseStudies = () => {
                       )}
                       <div className="p-8">
                         <div className="flex items-center gap-3 mb-4">
-                          <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center`}>
-                            <Icon className="text-primary" size={20} />
-                          </div>
+                          <BrandLogo brand={study.platform} className="px-2 py-1" imgClassName="h-7" />
                           <span className="text-xs font-body font-semibold text-primary tracking-wider uppercase">{study.platform}</span>
                         </div>
                         <h3 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">{study.title}</h3>

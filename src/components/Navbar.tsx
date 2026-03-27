@@ -24,8 +24,8 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src={amLogo} alt="AM Marketing" className="h-10 w-10 object-contain" width={512} height={512} />
-          <span className="font-display text-xl font-bold text-gradient-gold">AM Marketing</span>
+          <img src={amLogo} alt="AM Marketing" className="h-14 w-14 object-contain" width={512} height={512} />
+          <span className="font-display text-2xl font-bold text-gradient-gold">AM Marketing</span>
         </Link>
 
         <div className="hidden lg:flex items-center gap-5">

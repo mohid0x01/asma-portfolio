@@ -1,18 +1,19 @@
-import { Target, TrendingUp, Megaphone, Palette, BarChart3, MonitorSmartphone, ShoppingCart, Video, Search, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
+import BrandLogo from "@/components/BrandLogo";
 
 const services = [
-  { icon: Target, title: "Meta Ads Management", desc: "Strategic Facebook & Instagram advertising campaigns. Audience targeting, A/B testing, retargeting funnels, and conversion optimization for maximum ROI.", color: "from-blue-500/20 to-blue-600/5" },
-  { icon: TrendingUp, title: "Google Ads (PPC)", desc: "Search, Display, and Shopping campaigns. Keyword research, bid management, and landing page optimization to drive qualified traffic.", color: "from-green-500/20 to-green-600/5" },
-  { icon: Megaphone, title: "TikTok Ads & Growth", desc: "Viral content strategies, TikTok Shop setup, monetization, and targeted ad campaigns for the USA and global markets.", color: "from-pink-500/20 to-pink-600/5" },
-  { icon: Palette, title: "Brand Identity Design", desc: "Complete branding from logo design to brand guidelines. Color palettes, typography, and visual identity that sets you apart.", color: "from-amber-500/20 to-amber-600/5" },
-  { icon: MonitorSmartphone, title: "Social Media Management", desc: "Content creation, scheduling, community engagement, and growth strategies for Instagram, Facebook, and TikTok accounts.", color: "from-cyan-500/20 to-cyan-600/5" },
-  { icon: BarChart3, title: "Analytics & Reporting", desc: "Comprehensive campaign analytics, performance tracking, and data-driven insights to continuously improve results.", color: "from-violet-500/20 to-violet-600/5" },
-  { icon: ShoppingCart, title: "E-Commerce Marketing", desc: "TikTok Shop optimization, product showcases, and sales-driving strategies for online stores.", color: "from-orange-500/20 to-orange-600/5" },
-  { icon: Video, title: "Content Creation", desc: "Engaging visual content, ad creatives, and video production tailored for each platform's audience.", color: "from-red-500/20 to-red-600/5" },
-  { icon: Search, title: "SEO & Organic Growth", desc: "On-page optimization, keyword strategy, and organic content planning to boost long-term visibility.", color: "from-teal-500/20 to-teal-600/5" },
+  { title: "Meta Ads Management", desc: "Strategic Facebook & Instagram advertising campaigns with audience targeting, A/B testing, retargeting funnels, and conversion optimization.", brands: ["Meta Ads"] },
+  { title: "Google Ads (PPC)", desc: "Search, Display, and Shopping campaigns backed by keyword research, bid management, and landing page optimization.", brands: ["Google Ads"] },
+  { title: "TikTok Shop Growth", desc: "Shop setup, creator collaborations, monetization strategy, and ad campaigns built for social commerce growth.", brands: ["TikTok Shop"] },
+  { title: "Shopify Store Scaling", desc: "Store optimization, conversion strategy, retention flows, and growth systems for serious e-commerce brands.", brands: ["Shopify"] },
+  { title: "Etsy SEO & Sales", desc: "Listing optimization, Etsy Ads, keyword mapping, and catalog strategy to improve visibility and conversion.", brands: ["Etsy"] },
+  { title: "eBay Marketplace Management", desc: "Listing health, repricing, operations support, and scalable account strategy for eBay sellers.", brands: ["eBay"] },
+  { title: "Local Commerce Marketing", desc: "Google Business optimization, local campaigns, maps visibility, and neighborhood-level sales growth.", brands: ["Local Commerce"] },
+  { title: "Cross-Platform Content Systems", desc: "Creative direction and content planning tailored for Meta, TikTok Shop, and Google ad ecosystems.", brands: ["Meta Ads", "TikTok Shop", "Google Ads"] },
+  { title: "Marketplace Expansion Strategy", desc: "Roadmaps for sellers ready to expand from one marketplace into Etsy, eBay, and Shopify with confidence.", brands: ["Etsy", "eBay", "Shopify"] },
 ];
 
 const Services = () => (
@@ -33,8 +34,10 @@ const Services = () => (
             {services.map((svc, i) => (
               <ScrollReveal key={i} delay={i * 0.08}>
                 <div className="glass-card rounded-2xl p-8 group h-full">
-                  <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${svc.color} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform`}>
-                    <svc.icon className="text-primary" size={28} />
+                    <div className="mb-5 flex flex-wrap gap-2">
+                      {svc.brands.map((brand) => (
+                        <BrandLogo key={brand} brand={brand} className="px-2 py-1" imgClassName="h-7" />
+                      ))}
                   </div>
                   <h3 className="font-display text-xl font-semibold text-foreground mb-3">{svc.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{svc.desc}</p>

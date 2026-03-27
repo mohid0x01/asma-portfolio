@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Lock, Mail } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -9,8 +9,14 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
+  const { signIn, user, isAdmin, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authLoading && user && isAdmin) {
+      navigate("/admin", { replace: true });
+    }
+  }, [authLoading, user, isAdmin, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +27,6 @@ const AdminLogin = () => {
       toast.error(error.message);
     } else {
       toast.success("Welcome back!");
-      navigate("/admin");
     }
   };
 
@@ -29,7 +34,7 @@ const AdminLogin = () => {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="glass-card rounded-3xl p-10 w-full max-w-md animate-scale-up">
         <div className="text-center mb-8">
-          <img src={amLogo} alt="AM Marketing" className="h-16 w-16 mx-auto mb-4" />
+          <img src={amLogo} alt="AM Marketing" className="h-20 w-20 mx-auto mb-4" />
           <h1 className="font-display text-2xl font-bold text-gradient-gold">Admin Panel</h1>
           <p className="text-muted-foreground text-sm mt-2">Sign in to manage your site</p>
         </div>

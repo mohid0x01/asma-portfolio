@@ -39,6 +39,7 @@ import AdminContent from "./pages/admin/AdminContent";
 import AdminCaseStudies from "./pages/admin/AdminCaseStudies";
 import AdminBookings from "./pages/admin/AdminBookings";
 import AdminNewsletter from "./pages/admin/AdminNewsletter";
+import AdminCV from "./pages/admin/AdminCV";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +99,7 @@ const App = () => (
               <Route path="case-studies" element={<AdminCaseStudies />} />
               <Route path="bookings" element={<AdminBookings />} />
               <Route path="newsletter" element={<AdminNewsletter />} />
+              <Route path="cv" element={<AdminCV />} />
             </Route>
 
             <Route path="*" element={<PublicLayout><NotFound /></PublicLayout>} />

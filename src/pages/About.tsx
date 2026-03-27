@@ -1,7 +1,8 @@
-import { Award, Users, Zap, Globe, ShoppingBag, Store, Video, MapPin, ArrowRight, Linkedin, CheckCircle } from "lucide-react";
+import { Award, Users, Zap, Globe, ArrowRight, Linkedin, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
+import BrandLogo from "@/components/BrandLogo";
 
 const highlights = [
   { icon: Award, title: "5+ Years", desc: "Designing and executing high-converting campaigns for various industries." },
@@ -11,11 +12,11 @@ const highlights = [
 ];
 
 const platformExpertise = [
-  { icon: ShoppingBag, name: "Etsy", level: 95, desc: "Store setup, SEO, Etsy Ads, Star Seller strategy" },
-  { icon: Store, name: "eBay", level: 90, desc: "Listing optimization, repricing, PowerSeller strategy" },
-  { icon: Video, name: "TikTok Shop", level: 92, desc: "Shop setup, affiliate creators, live shopping, viral content" },
-  { icon: Globe, name: "Shopify", level: 88, desc: "Store design, apps, marketing automation, Shopify Plus" },
-  { icon: MapPin, name: "Local Commerce", level: 85, desc: "Google Business, local SEO, location-based marketing" },
+  { brand: "Etsy", name: "Etsy", level: 95, desc: "Store setup, SEO, Etsy Ads, Star Seller strategy" },
+  { brand: "eBay", name: "eBay", level: 90, desc: "Listing optimization, repricing, PowerSeller strategy" },
+  { brand: "TikTok Shop", name: "TikTok Shop", level: 92, desc: "Shop setup, affiliate creators, live shopping, viral content" },
+  { brand: "Shopify", name: "Shopify", level: 88, desc: "Store design, apps, marketing automation, Shopify Plus" },
+  { brand: "Local Commerce", name: "Local Commerce", level: 85, desc: "Google Business, local SEO, location-based marketing" },
 ];
 
 const certifications = [
@@ -93,9 +94,7 @@ const About = () => (
                 <div className="glass-card rounded-xl p-6">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <p.icon className="text-primary" size={20} />
-                      </div>
+                      <BrandLogo brand={p.brand} className="px-2 py-1" imgClassName="h-7" />
                       <div>
                         <h3 className="font-display font-semibold text-foreground">{p.name}</h3>
                         <p className="text-xs text-muted-foreground">{p.desc}</p>

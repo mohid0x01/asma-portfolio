@@ -4,6 +4,7 @@ import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import ImageUpload from "@/components/ImageUpload";
+import LogoImage from "@/components/LogoImage";
 
 type Logo = Tables<"client_logos">;
 
@@ -65,7 +66,13 @@ const AdminLogos = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {items.map((item) => (
           <div key={item.id} className="glass-card rounded-xl p-4 text-center">
-            {item.logo_url && <img src={item.logo_url} alt={item.name} className="h-12 mx-auto mb-2 object-contain" />}
+            <LogoImage
+              src={item.logo_url}
+              alt={item.name}
+              fallback={item.name}
+              className="mb-2 flex justify-center"
+              imgClassName="h-12 w-auto max-w-full object-contain"
+            />
             <p className="text-sm font-body text-foreground">{item.name}</p>
             <div className="flex justify-center gap-2 mt-2">
               <button onClick={() => edit(item)} className="p-1 text-muted-foreground hover:text-foreground"><Pencil size={14} /></button>

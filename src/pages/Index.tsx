@@ -1,22 +1,24 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, TrendingUp, Target, BarChart3, Megaphone, Palette, MonitorSmartphone, CheckCircle, MessageSquare, Lightbulb, Rocket, Search, Users, Star, ShoppingBag, Store, Video, Globe, MapPin, Zap, Award } from "lucide-react";
+import { ArrowRight, TrendingUp, Target, BarChart3, CheckCircle, MessageSquare, Lightbulb, Rocket, Search, Users, Star, Zap, Award, Globe } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg-clean.jpg";
 import amLogo from "@/assets/am-logo.png";
 import type { Tables } from "@/integrations/supabase/types";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
 import CounterAnimation from "@/components/CounterAnimation";
 import ROICalculator from "@/components/ROICalculator";
+import BrandLogo from "@/components/BrandLogo";
+import LogoImage from "@/components/LogoImage";
 
 const services = [
-  { icon: Target, title: "Meta Ads", desc: "Strategic Facebook & Instagram ad campaigns that convert." },
-  { icon: TrendingUp, title: "Google Ads", desc: "Data-driven PPC campaigns to maximize your ROI." },
-  { icon: Megaphone, title: "TikTok Ads", desc: "Viral content strategies for massive reach and sales." },
-  { icon: Palette, title: "Branding", desc: "Complete brand identity from logo to visual guidelines." },
-  { icon: BarChart3, title: "Analytics", desc: "In-depth reporting and campaign optimization." },
-  { icon: MonitorSmartphone, title: "Social Media", desc: "Content creation and growth across all platforms." },
+  { icon: Target, brand: "Meta Ads", title: "Meta Ads", desc: "Strategic Facebook & Instagram ad campaigns that convert." },
+  { icon: TrendingUp, brand: "Google Ads", title: "Google Ads", desc: "Data-driven PPC campaigns to maximize your ROI." },
+  { icon: BarChart3, brand: "TikTok Shop", title: "TikTok Shop", desc: "Social commerce growth systems, creators, and paid campaigns." },
+  { icon: Target, brand: "Shopify", title: "Shopify Growth", desc: "Store optimization, retention flows, and conversion improvements." },
+  { icon: TrendingUp, brand: "Etsy", title: "Etsy SEO", desc: "Keyword mapping, listing optimization, and marketplace scaling." },
+  { icon: BarChart3, brand: "eBay", title: "eBay Scaling", desc: "Listing performance, pricing strategy, and operational support." },
 ];
 
 const process = [
@@ -27,11 +29,11 @@ const process = [
 ];
 
 const platforms = [
-  { icon: ShoppingBag, name: "Etsy", desc: "Handmade & vintage marketplace" },
-  { icon: Store, name: "eBay", desc: "Global online marketplace" },
-  { icon: Video, name: "TikTok Shop", desc: "Social commerce platform" },
-  { icon: Globe, name: "Shopify", desc: "E-commerce store builder" },
-  { icon: MapPin, name: "Local Commerce", desc: "Local business marketing" },
+  { brand: "Etsy", name: "Etsy", desc: "Handmade & vintage marketplace" },
+  { brand: "eBay", name: "eBay", desc: "Global online marketplace" },
+  { brand: "TikTok Shop", name: "TikTok Shop", desc: "Social commerce platform" },
+  { brand: "Shopify", name: "Shopify", desc: "E-commerce store builder" },
+  { brand: "Local Commerce", name: "Local Commerce", desc: "Local business marketing" },
 ];
 
 const faqs = [
@@ -76,7 +78,7 @@ const Index = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
           <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
             <ScrollReveal>
-              <img src={amLogo} alt="AM Marketing" className="h-24 w-24 mx-auto mb-6 animate-float" width={512} height={512} />
+              <img src={amLogo} alt="AM Marketing" className="h-32 w-32 mx-auto mb-6 animate-float object-contain" width={512} height={512} />
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
               <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
@@ -98,6 +100,13 @@ const Index = () => {
                 <Link to="/case-studies" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform">
                   View Case Studies
                 </Link>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.35} className="mt-8">
+              <div className="flex flex-wrap justify-center gap-3">
+                {["Meta Ads", "Google Ads", "TikTok Shop", "Shopify", "Etsy", "eBay"].map((brand) => (
+                  <BrandLogo key={brand} brand={brand} />
+                ))}
               </div>
             </ScrollReveal>
           </div>
@@ -133,9 +142,9 @@ const Index = () => {
               {platforms.map((p, i) => (
                 <ScrollReveal key={i} delay={i * 0.1}>
                   <Link to="/case-studies" className="glass-card rounded-2xl p-6 text-center group h-full hover:glow-gold transition-all">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                      <p.icon className="text-primary" size={28} />
-                    </div>
+                      <div className="mb-4 flex justify-center">
+                        <BrandLogo brand={p.brand} className="px-3 py-2" imgClassName="h-8" />
+                      </div>
                     <h3 className="font-display font-semibold text-foreground text-sm mb-1">{p.name}</h3>
                     <p className="text-xs text-muted-foreground">{p.desc}</p>
                   </Link>
@@ -156,11 +165,13 @@ const Index = () => {
                 {logos.map((logo, i) => (
                   <ScrollReveal key={logo.id} delay={i * 0.1}>
                     <a href={logo.website_url || "#"} target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity">
-                      {logo.logo_url ? (
-                        <img src={logo.logo_url} alt={logo.name} className="h-10 md:h-12 object-contain grayscale hover:grayscale-0 transition-all" loading="lazy" />
-                      ) : (
-                        <span className="text-muted-foreground font-display font-semibold text-lg">{logo.name}</span>
-                      )}
+                      <LogoImage
+                        src={logo.logo_url}
+                        alt={logo.name}
+                        fallback={logo.name}
+                        imgClassName="h-10 md:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all"
+                        fallbackClassName="text-lg"
+                      />
                     </a>
                   </ScrollReveal>
                 ))}
@@ -184,8 +195,11 @@ const Index = () => {
               {services.map((svc, i) => (
                 <ScrollReveal key={i} delay={i * 0.1}>
                   <div className="glass-card rounded-2xl p-8 group h-full">
-                    <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-5 group-hover:glow-gold transition-all">
-                      <svc.icon className="text-primary" size={28} />
+                      <div className="mb-5 flex items-center gap-3">
+                        <BrandLogo brand={svc.brand} className="px-2 py-1" imgClassName="h-7" />
+                        <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:glow-gold transition-all">
+                          <svc.icon className="text-primary" size={24} />
+                        </div>
                     </div>
                     <h3 className="font-display text-xl font-semibold text-foreground mb-2">{svc.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{svc.desc}</p>

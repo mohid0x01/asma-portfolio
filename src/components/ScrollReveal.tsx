@@ -1,5 +1,6 @@
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -26,15 +27,24 @@ const ScrollReveal = ({
   once = true,
 }: ScrollRevealProps) => {
   const ref = useRef(null);
+  const isMobile = useIsMobile();
+  const reduceMotion = useReducedMotion();
   const isInView = useInView(ref, { once, margin: "-50px" });
   const offset = directionMap[direction];
+  const shouldMinimizeMotion = reduceMotion || isMobile;
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, ...offset }}
-      animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, ...offset }}
-      transition={{ duration, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      initial={shouldMinimizeMotion ? { opacity: 0 } : { opacity: 0, ...offset }}
+      animate={
+        isInView
+          ? { opacity: 1, x: 0, y: 0 }
+          : shouldMinimizeMotion
+            ? { opacity: 0 }
+            : { opacity: 0, ...offset }
+      }
+      transition={{ duration: shouldMinimizeMotion ? 0.22 : duration, delay: shouldMinimizeMotion ? 0 : delay, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={className}
     >
       {children}
