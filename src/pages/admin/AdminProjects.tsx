@@ -4,6 +4,7 @@ import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import ImageUpload from "@/components/ImageUpload";
+import DragSortList from "@/components/DragSortList";
 
 type Project = Tables<"projects">;
 
@@ -13,11 +14,11 @@ const AdminProjects = () => {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ title: "", description: "", category: "", image_url: "", link: "", published: true, sort_order: 0 });
 
-  const fetch = async () => {
+  const fetchData = async () => {
     const { data } = await supabase.from("projects").select("*").order("sort_order");
     setItems(data || []);
   };
-  useEffect(() => { fetch(); }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const reset = () => { setForm({ title: "", description: "", category: "", image_url: "", link: "", published: true, sort_order: 0 }); setEditing(null); setShowForm(false); };
 
@@ -29,17 +30,23 @@ const AdminProjects = () => {
 
   const save = async () => {
     if (!form.title) { toast.error("Title required"); return; }
-    const payload = { ...form };
     if (editing) {
-      const { error } = await supabase.from("projects").update(payload).eq("id", editing.id);
-      if (error) toast.error(error.message); else { toast.success("Updated"); reset(); fetch(); }
+      const { error } = await supabase.from("projects").update(form).eq("id", editing.id);
+      if (error) toast.error(error.message); else { toast.success("Updated"); reset(); fetchData(); }
     } else {
-      const { error } = await supabase.from("projects").insert(payload);
-      if (error) toast.error(error.message); else { toast.success("Created"); reset(); fetch(); }
+      const { error } = await supabase.from("projects").insert(form);
+      if (error) toast.error(error.message); else { toast.success("Created"); reset(); fetchData(); }
     }
   };
 
-  const del = async (id: string) => { if (!confirm("Delete?")) return; await supabase.from("projects").delete().eq("id", id); toast.success("Deleted"); fetch(); };
+  const del = async (id: string) => { if (!confirm("Delete?")) return; await supabase.from("projects").delete().eq("id", id); toast.success("Deleted"); fetchData(); };
+
+  const handleReorder = async (reordered: Project[]) => {
+    setItems(reordered);
+    const updates = reordered.map((item, i) => supabase.from("projects").update({ sort_order: i }).eq("id", item.id));
+    await Promise.all(updates);
+    toast.success("Order saved");
+  };
 
   return (
     <div>
@@ -67,9 +74,12 @@ const AdminProjects = () => {
           </div>
         </div>
       )}
-      <div className="space-y-3">
-        {items.map((item) => (
-          <div key={item.id} className="glass-card rounded-xl p-5 flex items-center justify-between">
+      <DragSortList
+        items={items}
+        onReorder={handleReorder}
+        className="space-y-3"
+        renderItem={(item) => (
+          <div className="glass-card rounded-xl p-5 flex items-center justify-between">
             <div>
               <h3 className="font-display font-semibold text-foreground">{item.title}</h3>
               <p className="text-xs text-muted-foreground mt-1">{item.category} • {item.published ? "Published" : "Draft"}</p>
@@ -79,9 +89,9 @@ const AdminProjects = () => {
               <button onClick={() => del(item.id)} className="p-2 rounded-lg hover:bg-destructive/10 text-destructive"><Trash2 size={16} /></button>
             </div>
           </div>
-        ))}
-        {items.length === 0 && <p className="text-muted-foreground text-center py-8">No projects yet.</p>}
-      </div>
+        )}
+      />
+      {items.length === 0 && <p className="text-muted-foreground text-center py-8">No projects yet.</p>}
     </div>
   );
 };

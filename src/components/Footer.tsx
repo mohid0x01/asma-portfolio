@@ -9,7 +9,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
         <div className="lg:col-span-2">
           <div className="flex items-center gap-3 mb-4">
-            <img src={amLogo} alt="AM Marketing" className="h-14 w-14 object-contain" width={512} height={512} loading="lazy" />
+            <img src={amLogo} alt="AM Marketing" className="h-16 w-16 object-contain" width={512} height={512} loading="lazy" />
             <span className="font-display text-2xl font-bold text-gradient-gold">AM Marketing</span>
           </div>
           <p className="text-muted-foreground text-sm leading-relaxed mb-6">
