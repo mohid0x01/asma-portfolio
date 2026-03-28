@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import ImageUpload from "@/components/ImageUpload";
+import DragSortList from "@/components/DragSortList";
 
 const AdminCaseStudies = () => {
   const [items, setItems] = useState<any[]>([]);
@@ -37,6 +38,13 @@ const AdminCaseStudies = () => {
 
   const del = async (id: string) => { if (!confirm("Delete?")) return; await supabase.from("case_studies").delete().eq("id", id); toast.success("Deleted"); fetchItems(); };
 
+  const handleReorder = async (reordered: any[]) => {
+    setItems(reordered);
+    const updates = reordered.map((item, i) => supabase.from("case_studies").update({ sort_order: i }).eq("id", item.id));
+    await Promise.all(updates);
+    toast.success("Order saved");
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -65,9 +73,12 @@ const AdminCaseStudies = () => {
           </div>
         </div>
       )}
-      <div className="space-y-3">
-        {items.map(item => (
-          <div key={item.id} className="glass-card rounded-xl p-5 flex items-center justify-between">
+      <DragSortList
+        items={items}
+        onReorder={handleReorder}
+        className="space-y-3"
+        renderItem={(item) => (
+          <div className="glass-card rounded-xl p-5 flex items-center justify-between">
             <div>
               <h3 className="font-display font-semibold text-foreground">{item.title}</h3>
               <p className="text-xs text-muted-foreground mt-1">{item.platform} • {item.client_name}</p>
@@ -77,9 +88,9 @@ const AdminCaseStudies = () => {
               <button onClick={() => del(item.id)} className="p-2 rounded-lg hover:bg-destructive/10 text-destructive"><Trash2 size={16} /></button>
             </div>
           </div>
-        ))}
-        {items.length === 0 && <p className="text-muted-foreground text-center py-8">No case studies yet.</p>}
-      </div>
+        )}
+      />
+      {items.length === 0 && <p className="text-muted-foreground text-center py-8">No case studies yet.</p>}
     </div>
   );
 };
