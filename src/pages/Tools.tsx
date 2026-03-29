@@ -1,57 +1,58 @@
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
+import BrandLogo from "@/components/BrandLogo";
 
 const toolCategories = [
   {
     category: "Advertising Platforms",
     tools: [
-      { name: "Meta Ads Manager", desc: "Facebook & Instagram advertising", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/120px-Facebook_Logo_%282019%29.png" },
-      { name: "Google Ads", desc: "Search, Display & Shopping campaigns", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Ads_logo.svg/120px-Google_Ads_logo.svg.png" },
-      { name: "TikTok Ads Manager", desc: "TikTok advertising & Shop management", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/100px-TikTok_logo.svg.png" },
+      { name: "Meta Ads Manager", desc: "Facebook & Instagram advertising", brand: "Meta Ads" },
+      { name: "Google Ads", desc: "Search, Display & Shopping campaigns", brand: "Google Ads" },
+      { name: "TikTok Ads Manager", desc: "TikTok advertising & Shop management", brand: "TikTok Shop" },
     ],
   },
   {
     category: "E-Commerce Platforms",
     tools: [
-      { name: "Shopify", desc: "Full e-commerce store management", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Shopify_logo_2018.svg/120px-Shopify_logo_2018.svg.png" },
-      { name: "Etsy", desc: "Handmade & vintage marketplace", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Etsy_logo.svg/120px-Etsy_logo.svg.png" },
-      { name: "eBay", desc: "Global online marketplace", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/EBay_logo.svg/120px-EBay_logo.svg.png" },
-      { name: "WooCommerce", desc: "WordPress e-commerce plugin", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/WooCommerce_logo.svg/120px-WooCommerce_logo.svg.png" },
+      { name: "Shopify", desc: "Full e-commerce store management", brand: "Shopify" },
+      { name: "Etsy", desc: "Handmade & vintage marketplace", brand: "Etsy" },
+      { name: "eBay", desc: "Global online marketplace", brand: "eBay" },
+      { name: "WooCommerce", desc: "WordPress e-commerce plugin", brand: "" },
     ],
   },
   {
     category: "Analytics & Tracking",
     tools: [
-      { name: "Google Analytics", desc: "Website traffic analysis", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/GAnalytics.svg/100px-GAnalytics.svg.png" },
-      { name: "Meta Pixel", desc: "Facebook conversion tracking", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/120px-Facebook_Logo_%282019%29.png" },
-      { name: "Google Tag Manager", desc: "Tag management system", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Ads_logo.svg/120px-Google_Ads_logo.svg.png" },
-      { name: "Hotjar", desc: "Heatmaps & user behavior", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Hotjar_Logo.svg/120px-Hotjar_Logo.svg.png" },
+      { name: "Google Analytics", desc: "Website traffic analysis", brand: "Google Ads" },
+      { name: "Meta Pixel", desc: "Facebook conversion tracking", brand: "Meta Ads" },
+      { name: "Google Tag Manager", desc: "Tag management system", brand: "Google Ads" },
+      { name: "Hotjar", desc: "Heatmaps & user behavior", brand: "" },
     ],
   },
   {
     category: "Design & Content",
     tools: [
-      { name: "Canva Pro", desc: "Graphic design & social media creatives", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Canva_icon_2021.svg/100px-Canva_icon_2021.svg.png" },
-      { name: "Adobe Creative Suite", desc: "Professional design tools", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Adobe_Systems_logo_and_wordmark_%282017%29.svg/120px-Adobe_Systems_logo_and_wordmark_%282017%29.svg.png" },
-      { name: "CapCut", desc: "Video editing for TikTok & Reels", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3f/CapCut_logo.svg/100px-CapCut_logo.svg.png" },
-      { name: "Figma", desc: "UI/UX design & prototyping", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Figma-logo.svg/100px-Figma-logo.svg.png" },
+      { name: "Canva Pro", desc: "Graphic design & social media creatives", brand: "" },
+      { name: "Adobe Creative Suite", desc: "Professional design tools", brand: "" },
+      { name: "CapCut", desc: "Video editing for TikTok & Reels", brand: "" },
+      { name: "Figma", desc: "UI/UX design & prototyping", brand: "" },
     ],
   },
   {
     category: "Email & Automation",
     tools: [
-      { name: "Klaviyo", desc: "E-commerce email marketing", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Klaviyo_Primary_Logo_Charcoal.svg/120px-Klaviyo_Primary_Logo_Charcoal.svg.png" },
-      { name: "Mailchimp", desc: "Email campaigns & automation", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Mailchimp_Logo.svg/120px-Mailchimp_Logo.svg.png" },
-      { name: "Zapier", desc: "Workflow automation", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zapier_logo.svg/120px-Zapier_logo.svg.png" },
+      { name: "Klaviyo", desc: "E-commerce email marketing", brand: "" },
+      { name: "Mailchimp", desc: "Email campaigns & automation", brand: "" },
+      { name: "Zapier", desc: "Workflow automation", brand: "" },
     ],
   },
   {
     category: "SEO & Research",
     tools: [
-      { name: "SEMrush", desc: "SEO & competitive analysis", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Semrush_logo.svg/120px-Semrush_logo.svg.png" },
-      { name: "Ahrefs", desc: "Backlink analysis & keyword research", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Ahrefs_Logo.svg/120px-Ahrefs_Logo.svg.png" },
-      { name: "Marmalead", desc: "Etsy SEO tool", logo: "" },
-      { name: "eRank", desc: "Etsy shop analytics", logo: "" },
+      { name: "SEMrush", desc: "SEO & competitive analysis", brand: "" },
+      { name: "Ahrefs", desc: "Backlink analysis & keyword research", brand: "" },
+      { name: "Marmalead", desc: "Etsy SEO tool", brand: "Etsy" },
+      { name: "eRank", desc: "Etsy shop analytics", brand: "Etsy" },
     ],
   },
 ];
@@ -79,9 +80,11 @@ const Tools = () => (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {cat.tools.map((tool, ti) => (
                     <ScrollReveal key={ti} delay={ti * 0.05}>
-                      <div className="glass-card rounded-xl p-6 text-center h-full group hover:glow-gold transition-all">
-                        {tool.logo ? (
-                          <img src={tool.logo} alt={tool.name} className="h-8 mx-auto mb-3 object-contain" loading="lazy" />
+                      <div className="glass-card rounded-xl p-6 text-center h-full group premium-shine">
+                        {tool.brand ? (
+                          <div className="mb-3 flex justify-center">
+                            <BrandLogo brand={tool.brand} imgClassName="h-8" />
+                          </div>
                         ) : (
                           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-3">
                             <span className="text-primary font-display font-bold text-lg">{tool.name[0]}</span>
