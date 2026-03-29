@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
+import DragSortList from "@/components/DragSortList";
 
 type Service = Tables<"services">;
 
@@ -39,6 +40,13 @@ const AdminServices = () => {
 
   const del = async (id: string) => { if (!confirm("Delete?")) return; await supabase.from("services").delete().eq("id", id); toast.success("Deleted"); fetchItems(); };
 
+  const handleReorder = async (reordered: Service[]) => {
+    setItems(reordered);
+    const updates = reordered.map((item, i) => supabase.from("services").update({ sort_order: i }).eq("id", item.id));
+    await Promise.all(updates);
+    toast.success("Order saved");
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -58,18 +66,21 @@ const AdminServices = () => {
           </div>
         </div>
       )}
-      <div className="space-y-3">
-        {items.map((item) => (
-          <div key={item.id} className="glass-card rounded-xl p-5 flex items-center justify-between">
+      <DragSortList
+        items={items}
+        onReorder={handleReorder}
+        className="space-y-3"
+        renderItem={(item) => (
+          <div className="glass-card rounded-xl p-5 flex items-center justify-between">
             <div><h3 className="font-display font-semibold text-foreground">{item.title}</h3><p className="text-xs text-muted-foreground mt-1">{item.icon_name}</p></div>
             <div className="flex gap-2">
               <button onClick={() => edit(item)} className="p-2 rounded-lg hover:bg-muted/50 text-muted-foreground"><Pencil size={16} /></button>
               <button onClick={() => del(item.id)} className="p-2 rounded-lg hover:bg-destructive/10 text-destructive"><Trash2 size={16} /></button>
             </div>
           </div>
-        ))}
-        {items.length === 0 && <p className="text-muted-foreground text-center py-8">No services yet.</p>}
-      </div>
+        )}
+      />
+      {items.length === 0 && <p className="text-muted-foreground text-center py-8">No services yet.</p>}
     </div>
   );
 };

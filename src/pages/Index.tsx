@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, TrendingUp, Target, BarChart3, CheckCircle, MessageSquare, Lightbulb, Rocket, Search, Users, Star, Zap, Award, Globe } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import heroBg from "@/assets/hero-bg-clean.jpg";
 import amLogo from "@/assets/am-logo.png";
@@ -8,9 +8,11 @@ import type { Tables } from "@/integrations/supabase/types";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
 import CounterAnimation from "@/components/CounterAnimation";
-import ROICalculator from "@/components/ROICalculator";
 import BrandLogo from "@/components/BrandLogo";
 import LogoImage from "@/components/LogoImage";
+
+const ROICalculator = lazy(() => import("@/components/ROICalculator"));
+const PlatformShowcase = lazy(() => import("@/components/PlatformShowcase"));
 
 const services = [
   { icon: Target, brand: "Meta Ads", title: "Meta Ads", desc: "Strategic Facebook & Instagram ad campaigns that convert." },
@@ -74,11 +76,11 @@ const Index = () => {
       <div className="min-h-screen">
         {/* Hero */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" width={1920} height={1080} />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+          <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover brightness-[0.4] blur-[4px] scale-105" width={1920} height={1080} />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background" />
           <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
             <ScrollReveal>
-              <img src={amLogo} alt="AM Marketing" className="h-32 w-32 mx-auto mb-6 animate-float object-contain" width={512} height={512} />
+              <img src={amLogo} alt="AM Marketing" className="h-40 w-40 mx-auto mb-6 animate-float object-contain drop-shadow-2xl" width={512} height={512} />
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
               <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
@@ -115,9 +117,9 @@ const Index = () => {
         {/* Animated Stats */}
         <section className="section-padding -mt-20 relative z-10">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {achievements.map((stat, i) => (
+             {achievements.map((stat, i) => (
               <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="glass-card rounded-2xl p-5 text-center group hover:glow-gold transition-all">
+                <div className="stat-card-3d rounded-2xl p-5 text-center group premium-shine">
                   <stat.icon className="text-primary mx-auto mb-2" size={24} />
                   <div className="text-2xl md:text-3xl font-display font-bold text-gradient-gold">{stat.value}</div>
                   <div className="text-xs text-muted-foreground mt-1 font-body">{stat.label}</div>
@@ -289,8 +291,15 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Platform Showcase */}
+        <Suspense fallback={<div className="py-20 text-center text-muted-foreground">Loading...</div>}>
+          <PlatformShowcase />
+        </Suspense>
+
         {/* ROI Calculator */}
-        <ROICalculator />
+        <Suspense fallback={<div className="py-20 text-center text-muted-foreground">Loading...</div>}>
+          <ROICalculator />
+        </Suspense>
 
         {/* Testimonials Preview */}
         {testimonials.length > 0 && (

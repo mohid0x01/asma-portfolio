@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
 import ImageUpload from "@/components/ImageUpload";
 import LogoImage from "@/components/LogoImage";
+import DragSortList from "@/components/DragSortList";
 
 type Logo = Tables<"client_logos">;
 
@@ -41,6 +42,13 @@ const AdminLogos = () => {
 
   const del = async (id: string) => { if (!confirm("Delete?")) return; await supabase.from("client_logos").delete().eq("id", id); toast.success("Deleted"); fetchItems(); };
 
+  const handleReorder = async (reordered: Logo[]) => {
+    setItems(reordered);
+    const updates = reordered.map((item, i) => supabase.from("client_logos").update({ sort_order: i }).eq("id", item.id));
+    await Promise.all(updates);
+    toast.success("Order saved");
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
@@ -63,9 +71,12 @@ const AdminLogos = () => {
           </div>
         </div>
       )}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {items.map((item) => (
-          <div key={item.id} className="glass-card rounded-xl p-4 text-center">
+      <DragSortList
+        items={items}
+        onReorder={handleReorder}
+        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+        renderItem={(item) => (
+          <div className="glass-card rounded-xl p-4 text-center">
             <LogoImage
               src={item.logo_url}
               alt={item.name}
@@ -79,8 +90,8 @@ const AdminLogos = () => {
               <button onClick={() => del(item.id)} className="p-1 text-destructive"><Trash2 size={14} /></button>
             </div>
           </div>
-        ))}
-      </div>
+        )}
+      />
       {items.length === 0 && <p className="text-muted-foreground text-center py-8">No client logos yet.</p>}
     </div>
   );

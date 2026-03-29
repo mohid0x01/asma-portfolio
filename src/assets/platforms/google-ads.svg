@@ -1,8 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="270" height="72" viewBox="0 0 270 72" fill="none">
-  <rect width="270" height="72" rx="18" fill="#F8FAFC"/>
-  <path d="M52.7 19.5C58.2 19.5 62.7 24 62.7 29.5V48.6C62.7 54.1 58.2 58.6 52.7 58.6C47.2 58.6 42.7 54.1 42.7 48.6V29.5C42.7 24 47.2 19.5 52.7 19.5Z" fill="#4285F4"/>
-  <path d="M74.5 52.4C71.8 57.2 65.7 58.8 60.9 56.1C56.1 53.3 54.5 47.2 57.2 42.4L72.5 15.5C75.2 10.7 81.3 9.1 86.1 11.8C90.9 14.6 92.5 20.7 89.8 25.5L74.5 52.4Z" fill="#34A853"/>
-  <circle cx="76.8" cy="48.6" r="10" fill="#FBBC04"/>
-  <text x="104" y="33" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#111827">Google</text>
-  <text x="104" y="54" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#4B5563">Ads</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" fill="none">
+  <path d="M35 12C40 12 44 16 44 21V39C44 44 40 48 35 48C30 48 26 44 26 39V21C26 16 30 12 35 12Z" fill="#4285F4"/>
+  <path d="M54 42C51.5 46.3 46 47.8 41.7 45.3C37.4 42.8 36 37.3 38.5 33L52.2 9.3C54.7 5 60.2 3.5 64.5 6C68.8 8.5 70.3 14 67.8 18.3L54 42Z" fill="#34A853"/>
+  <circle cx="57" cy="39" r="9" fill="#FBBC04"/>
+  <text x="78" y="28" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="600">
+    <tspan fill="#4285F4">G</tspan><tspan fill="#EA4335">o</tspan><tspan fill="#FBBC05">o</tspan><tspan fill="#4285F4">g</tspan><tspan fill="#34A853">l</tspan><tspan fill="#EA4335">e</tspan>
+  </text>
+  <text x="159" y="28" font-family="'Helvetica Neue', Arial, sans-serif" font-size="20" font-weight="400" fill="#999">Ads</text>
 </svg>
