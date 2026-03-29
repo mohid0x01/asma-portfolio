@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="260" height="72" viewBox="0 0 260 72" fill="none">
-  <rect width="260" height="72" rx="18" fill="#F5F9FF"/>
-  <path d="M30 46.4C30 31.6 37.9 20 46.6 20C52 20 57.3 24.7 63 34.1C68.4 24.7 73.6 20 79 20C87.8 20 95.6 31.6 95.6 46.4H87.9C87.9 36.3 83.6 28.2 79.2 28.2C75.6 28.2 71.4 33 65.9 43.6L63.1 49L60.2 43.6C54.6 33 50.5 28.2 46.8 28.2C42.3 28.2 38 36.2 38 46.4H30Z" fill="#0866FF"/>
-  <text x="120" y="33" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#111827">Meta</text>
-  <text x="120" y="54" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#4B5563">Ads</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 50" fill="none">
+  <path d="M18 38C18 24.4 25.3 13.5 33.2 13.5C38 13.5 42.9 17.8 48 26.3C53 17.8 57.8 13.5 62.5 13.5C70.5 13.5 77.8 24.4 77.8 38H70.8C70.8 28.8 66.9 21.4 62.7 21.4C59.4 21.4 55.5 25.8 50.3 35.5L47.7 40.4L45 35.5C39.8 25.8 35.8 21.4 32.5 21.4C28.3 21.4 24.4 28.7 24.4 38H18Z" fill="#0866FF"/>
+  <text x="88" y="32" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="700" fill="#0866FF">Meta</text>
+  <text x="135" y="32" font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="400" fill="#999">Ads</text>
 </svg>

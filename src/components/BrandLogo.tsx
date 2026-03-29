@@ -35,14 +35,14 @@ const BrandLogo = ({ brand, className = "", imgClassName = "" }: BrandLogoProps)
 
   if (!asset) {
     return (
-      <div className={`inline-flex items-center justify-center rounded-2xl border border-border/40 bg-card/60 px-3 py-2 ${className}`}>
+      <div className={`inline-flex items-center justify-center ${className}`}>
         <span className="font-display text-sm font-semibold text-foreground">{brand}</span>
       </div>
     );
   }
 
   return (
-    <div className={`inline-flex items-center justify-center rounded-2xl border border-border/40 bg-card/60 px-3 py-2 shadow-sm ${className}`}>
+    <div className={`inline-flex items-center justify-center ${className}`}>
       <img src={asset.src} alt={asset.alt} loading="lazy" decoding="async" className={`h-8 w-auto object-contain ${imgClassName}`} />
     </div>
   );

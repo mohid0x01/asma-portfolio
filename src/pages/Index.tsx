@@ -117,9 +117,9 @@ const Index = () => {
         {/* Animated Stats */}
         <section className="section-padding -mt-20 relative z-10">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {achievements.map((stat, i) => (
+             {achievements.map((stat, i) => (
               <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="glass-card rounded-2xl p-5 text-center group hover:glow-gold transition-all">
+                <div className="stat-card-3d rounded-2xl p-5 text-center group premium-shine">
                   <stat.icon className="text-primary mx-auto mb-2" size={24} />
                   <div className="text-2xl md:text-3xl font-display font-bold text-gradient-gold">{stat.value}</div>
                   <div className="text-xs text-muted-foreground mt-1 font-body">{stat.label}</div>
