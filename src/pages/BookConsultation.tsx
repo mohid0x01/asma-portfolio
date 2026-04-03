@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Calendar, Send, CheckCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { consultationFormSchema } from "@/lib/sanitize";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
 
@@ -15,9 +16,22 @@ const BookConsultation = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name || !form.email) { toast.error("Name and email are required"); return; }
+    const result = consultationFormSchema.safeParse(form);
+    if (!result.success) {
+      toast.error(result.error.errors[0]?.message || "Invalid input");
+      return;
+    }
     setLoading(true);
-    const { error } = await supabase.from("consultation_bookings").insert(form);
+    const d = result.data;
+    const { error } = await supabase.from("consultation_bookings").insert({
+      name: d.name || "",
+      email: d.email || "",
+      phone: d.phone || null,
+      business_type: d.business_type || null,
+      platform: d.platform || null,
+      budget_range: d.budget_range || null,
+      message: d.message || null,
+    });
     setLoading(false);
     if (error) toast.error("Failed to book. Please try again.");
     else { setSubmitted(true); toast.success("Consultation booked! We'll contact you within 24 hours."); }
@@ -59,21 +73,21 @@ const BookConsultation = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <label className="text-sm text-muted-foreground font-body mb-1 block">Full Name *</label>
-                      <input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="Asma Mahar" required />
+                      <input type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} maxLength={100} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="Asma Mahar" required />
                     </div>
                     <div>
                       <label className="text-sm text-muted-foreground font-body mb-1 block">Email Address *</label>
-                      <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="you@email.com" required />
+                      <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} maxLength={255} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="you@email.com" required />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       <label className="text-sm text-muted-foreground font-body mb-1 block">Phone Number</label>
-                      <input type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="+92 xxx xxxxxxx" />
+                      <input type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} maxLength={20} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="+92 xxx xxxxxxx" />
                     </div>
                     <div>
                       <label className="text-sm text-muted-foreground font-body mb-1 block">Business Type</label>
-                      <input type="text" value={form.business_type} onChange={e => setForm({ ...form, business_type: e.target.value })} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="e.g., Fashion, Electronics, Handmade" />
+                      <input type="text" value={form.business_type} onChange={e => setForm({ ...form, business_type: e.target.value })} maxLength={500} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body focus:outline-none focus:border-primary/50" placeholder="e.g., Fashion, Electronics, Handmade" />
                     </div>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -94,7 +108,7 @@ const BookConsultation = () => {
                   </div>
                   <div>
                     <label className="text-sm text-muted-foreground font-body mb-1 block">Tell me about your project</label>
-                    <textarea rows={4} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body resize-none focus:outline-none focus:border-primary/50" placeholder="Describe your goals, challenges, and what you hope to achieve..." />
+                    <textarea rows={4} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} maxLength={2000} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground text-sm font-body resize-none focus:outline-none focus:border-primary/50" placeholder="Describe your goals, challenges, and what you hope to achieve..." />
                   </div>
                   <button type="submit" disabled={loading} className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary text-primary-foreground font-body font-semibold hover:scale-[1.02] transition-transform glow-gold disabled:opacity-50">
                     {loading ? "Submitting..." : "Book Free Consultation"} <Send size={18} />
@@ -103,7 +117,6 @@ const BookConsultation = () => {
               </div>
             </ScrollReveal>
 
-            {/* Benefits */}
             <ScrollReveal delay={0.2}>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
                 {[

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Star, Send, CheckCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { feedbackFormSchema } from "@/lib/sanitize";
 import ScrollReveal from "@/components/ScrollReveal";
 import PageTransition from "@/components/PageTransition";
 
@@ -16,9 +17,18 @@ const Feedback = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) { toast.error("Please fill in your name and message"); return; }
+    const result = feedbackFormSchema.safeParse({ name, email: email || undefined, message, rating });
+    if (!result.success) {
+      toast.error(result.error.errors[0]?.message || "Invalid input");
+      return;
+    }
     setLoading(true);
-    const { error } = await supabase.from("feedbacks").insert({ name: name.trim(), email: email.trim() || null, message: message.trim(), rating });
+    const { error } = await supabase.from("feedbacks").insert({
+      name: result.data.name,
+      email: result.data.email || null,
+      message: result.data.message,
+      rating: result.data.rating,
+    });
     setLoading(false);
     if (error) { toast.error("Failed to submit feedback"); } else { setSubmitted(true); toast.success("Thank you for your feedback!"); }
   };
@@ -56,11 +66,11 @@ const Feedback = () => {
               <form onSubmit={handleSubmit} className="glass-card rounded-3xl p-8 md:p-10 space-y-6">
                 <div>
                   <label className="text-sm text-muted-foreground font-body mb-2 block">Your Name *</label>
-                  <input value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors font-body text-sm" placeholder="John Doe" required />
+                  <input value={name} onChange={(e) => setName(e.target.value)} maxLength={100} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors font-body text-sm" placeholder="John Doe" required />
                 </div>
                 <div>
                   <label className="text-sm text-muted-foreground font-body mb-2 block">Email (optional)</label>
-                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors font-body text-sm" placeholder="john@example.com" />
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={255} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors font-body text-sm" placeholder="john@example.com" />
                 </div>
                 <div>
                   <label className="text-sm text-muted-foreground font-body mb-2 block">Rating</label>
@@ -74,7 +84,7 @@ const Feedback = () => {
                 </div>
                 <div>
                   <label className="text-sm text-muted-foreground font-body mb-2 block">Your Feedback *</label>
-                  <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={5} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors font-body text-sm resize-none" placeholder="Share your experience..." required />
+                  <textarea value={message} onChange={(e) => setMessage(e.target.value)} rows={5} maxLength={2000} className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border/50 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 transition-colors font-body text-sm resize-none" placeholder="Share your experience..." required />
                 </div>
                 <button type="submit" disabled={loading} className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-primary text-primary-foreground font-body font-semibold hover:scale-[1.02] transition-transform glow-gold disabled:opacity-50">
                   {loading ? "Submitting..." : "Submit Feedback"} <Send size={18} />
