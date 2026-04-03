@@ -74,40 +74,67 @@ const Index = () => {
   return (
     <PageTransition>
       <div className="min-h-screen">
-        {/* Hero */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-          <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover brightness-[0.4] blur-[4px] scale-105" width={1920} height={1080} />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background" />
+        {/* Hero — compact Framer-inspired */}
+        <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-20">
+          <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover brightness-[0.3] blur-[6px] scale-105" width={1920} height={1080} />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
+
+          {/* 3D floating shapes */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className="absolute top-[15%] left-[8%] w-20 h-20 rounded-full bg-primary/5 animate-float blur-xl" />
+            <div className="absolute top-[30%] right-[12%] w-32 h-32 rounded-full bg-accent/8 animate-float blur-2xl" style={{ animationDelay: "2s" }} />
+            <div className="absolute bottom-[25%] left-[15%] w-16 h-16 rounded-xl bg-primary/8 animate-float rotate-45 blur-lg" style={{ animationDelay: "4s" }} />
+            <div className="absolute bottom-[20%] right-[8%] w-24 h-24 rounded-full bg-accent/5 animate-float blur-xl" style={{ animationDelay: "1s" }} />
+          </div>
+
           <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
             <ScrollReveal>
-              <img src={amLogo} alt="AM Marketing" className="h-40 w-40 mx-auto mb-6 animate-float object-contain drop-shadow-2xl" width={512} height={512} />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary/20 mb-6">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
+                <span className="text-xs font-body font-medium text-muted-foreground tracking-wider uppercase">E-Commerce Growth Specialist</span>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.05}>
+              <img src={amLogo} alt="AM Marketing" className="h-24 w-24 mx-auto mb-5 animate-float object-contain drop-shadow-2xl" width={512} height={512} />
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
-              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
-                <span className="text-gradient-gold">E-Commerce</span><br />
+              <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+                <span className="text-gradient-gold">E-Commerce</span>{" "}
                 <span className="text-foreground">Growth Expert</span>
               </h1>
             </ScrollReveal>
-            <ScrollReveal delay={0.2}>
-              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 font-body">
-                Scaling businesses on <span className="text-primary font-semibold">Etsy, eBay, TikTok Shop, Shopify</span> & more. 
-                Your ultimate e-commerce & paid marketing strategist.
+            <ScrollReveal delay={0.15}>
+              <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto mb-8 font-body">
+                Scaling businesses on <span className="text-primary font-semibold">Etsy, eBay, TikTok Shop, Shopify</span> & more with data-driven strategies.
               </p>
             </ScrollReveal>
-            <ScrollReveal delay={0.3}>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/book-consultation" className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-primary text-primary-foreground font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform glow-gold">
-                  Free Consultation <ArrowRight size={18} />
+            <ScrollReveal delay={0.2}>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link to="/book-consultation" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-primary-foreground font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform glow-gold">
+                  Get Started Now <ArrowRight size={16} />
                 </Link>
-                <Link to="/case-studies" className="inline-flex items-center gap-2 px-8 py-4 rounded-full glass border border-primary/30 text-primary font-body font-semibold text-sm tracking-wide hover:scale-105 transition-transform">
-                  View Case Studies
+                <Link to="/case-studies" className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full glass border border-border/40 text-foreground/80 font-body font-semibold text-sm tracking-wide hover:scale-105 hover:border-primary/30 transition-all">
+                  See Projects
                 </Link>
               </div>
             </ScrollReveal>
-            <ScrollReveal delay={0.35} className="mt-8">
-              <div className="flex flex-wrap justify-center gap-3">
+
+            {/* Scroll indicator */}
+            <ScrollReveal delay={0.3} className="mt-10">
+              <div className="flex items-center gap-4 justify-center text-muted-foreground/50 text-xs">
+                <span>Scroll down</span>
+                <div className="w-5 h-8 rounded-full border border-muted-foreground/30 flex items-start justify-center p-1">
+                  <div className="w-1 h-2 rounded-full bg-primary animate-bounce" />
+                </div>
+                <span>to see projects</span>
+              </div>
+            </ScrollReveal>
+
+            {/* Logo marquee */}
+            <ScrollReveal delay={0.35} className="mt-6">
+              <div className="flex flex-wrap justify-center gap-4 opacity-60">
                 {["Meta Ads", "Google Ads", "TikTok Shop", "Shopify", "Etsy", "eBay"].map((brand) => (
-                  <BrandLogo key={brand} brand={brand} />
+                  <BrandLogo key={brand} brand={brand} imgClassName="h-5" />
                 ))}
               </div>
             </ScrollReveal>
