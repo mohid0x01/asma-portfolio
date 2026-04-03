@@ -34,7 +34,7 @@ const Contact = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("contact_messages").insert(result.data);
+    const { error } = await supabase.from("contact_messages").insert({ name: d.name, email: d.email, message: d.message });
     setLoading(false);
     if (error) { toast.error("Failed to send message"); } else { toast.success("Message sent! We'll get back to you soon."); setName(""); setEmail(""); setMessage(""); }
   };

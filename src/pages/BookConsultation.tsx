@@ -22,7 +22,16 @@ const BookConsultation = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.from("consultation_bookings").insert(result.data);
+    const d = result.data;
+    const { error } = await supabase.from("consultation_bookings").insert({
+      name: d.name || "",
+      email: d.email || "",
+      phone: d.phone || null,
+      business_type: d.business_type || null,
+      platform: d.platform || null,
+      budget_range: d.budget_range || null,
+      message: d.message || null,
+    });
     setLoading(false);
     if (error) toast.error("Failed to book. Please try again.");
     else { setSubmitted(true); toast.success("Consultation booked! We'll contact you within 24 hours."); }
